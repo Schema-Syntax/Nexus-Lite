@@ -4,16 +4,24 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Nexus Lite</title>
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="256x256" href="/favicon-256.png">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%230e0f11'/><circle cx='16' cy='16' r='3' fill='%23c8a96e'/><circle cx='6' cy='6' r='2' fill='%23c8a96e' opacity='.7'/><circle cx='26' cy='6' r='2' fill='%23c8a96e' opacity='.7'/><circle cx='6' cy='26' r='2' fill='%23c8a96e' opacity='.7'/><circle cx='26' cy='26' r='2' fill='%23c8a96e' opacity='.7'/><line x1='6' y1='6' x2='16' y2='16' stroke='%23c8a96e' stroke-width='1.5' opacity='.5'/><line x1='26' y1='6' x2='16' y2='16' stroke='%23c8a96e' stroke-width='1.5' opacity='.5'/><line x1='6' y1='26' x2='16' y2='16' stroke='%23c8a96e' stroke-width='1.5' opacity='.5'/><line x1='26' y1='26' x2='16' y2='16' stroke='%23c8a96e' stroke-width='1.5' opacity='.5'/></svg>">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inconsolata:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  @font-face { font-family: 'Syne'; font-style: normal; font-weight: 400; font-display: swap; src: url('/fonts/syne-latin-400-normal.woff2') format('woff2'); }
+  @font-face { font-family: 'Syne'; font-style: normal; font-weight: 600; font-display: swap; src: url('/fonts/syne-latin-600-normal.woff2') format('woff2'); }
+  @font-face { font-family: 'Syne'; font-style: normal; font-weight: 700; font-display: swap; src: url('/fonts/syne-latin-700-normal.woff2') format('woff2'); }
+  @font-face { font-family: 'Syne'; font-style: normal; font-weight: 800; font-display: swap; src: url('/fonts/syne-latin-800-normal.woff2') format('woff2'); }
+  @font-face { font-family: 'Inconsolata'; font-style: normal; font-weight: 300; font-display: swap; src: url('/fonts/inconsolata-latin-300-normal.woff2') format('woff2'); }
+  @font-face { font-family: 'Inconsolata'; font-style: normal; font-weight: 400; font-display: swap; src: url('/fonts/inconsolata-latin-400-normal.woff2') format('woff2'); }
+  @font-face { font-family: 'Inconsolata'; font-style: normal; font-weight: 500; font-display: swap; src: url('/fonts/inconsolata-latin-500-normal.woff2') format('woff2'); }
+</style>
 <style>
   :root {
     --bg: #0e0f11;
     --surface: #16181c;
     --surface2: #1e2028;
     --border: #2a2d36;
-    --accent: #c8a96e;
     --accent2: #7eb8c9;
     --text: #e8e4dc;
     --text-muted: #6b6f7a;
@@ -28,7 +36,6 @@
     --surface: #ffffff;
     --surface2: #ebe8e0;
     --border: #d4cfc4;
-    --accent: #9a7a3a;
     --accent2: #3a7a9a;
     --text: #1a1a1e;
     --text-muted: #9a9590;
@@ -36,6 +43,31 @@
     --danger: #c94444;
     --success: #3a9a5a;
   }
+
+  [data-accent="gold"]   { --accent: #c8a96e; }
+  [data-accent="teal"]   { --accent: #7eb8c9; }
+  [data-accent="ember"]  { --accent: #c9784a; }
+  [data-accent="violet"] { --accent: #9e7ec9; }
+  [data-accent="slate"]  { --accent: #7a8fa0; }
+
+  [data-theme="light"][data-accent="gold"]   { --accent: #9a7a3a; }
+  [data-theme="light"][data-accent="teal"]   { --accent: #3a7a9a; }
+  [data-theme="light"][data-accent="ember"]  { --accent: #a05a2a; }
+  [data-theme="light"][data-accent="violet"] { --accent: #6a4a9a; }
+  [data-theme="light"][data-accent="slate"]  { --accent: #4a6070; }
+
+  .accent-swatches { display: flex; align-items: center; gap: 5px; }
+  .accent-swatch {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: transform 150ms ease, border-color 150ms ease;
+    flex-shrink: 0;
+  }
+  .accent-swatch:hover { transform: scale(1.2); }
+  .accent-swatch.selected { border-color: var(--text); transform: scale(1.15); }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -484,6 +516,75 @@
     color: var(--text-muted);
   }
 
+  /* Web Search */
+  .search-engines {
+    display: flex;
+    gap: 4px;
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+  }
+  .engine-btn {
+    flex: 1;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--text-muted);
+    cursor: pointer;
+    padding: 6px 4px;
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    transition: all var(--transition);
+    text-align: center;
+  }
+  .engine-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .engine-btn.active { background: var(--accent); border-color: var(--accent); color: var(--bg); }
+  .engine-btn.active.perplexity { background: #7eb8c9; border-color: #7eb8c9; }
+  .engine-btn.active.brave { background: #c96eb4; border-color: #c96eb4; }
+  .web-search-row {
+    display: flex;
+    gap: 6px;
+    padding: 10px 14px;
+  }
+  #webSearchInput {
+    flex: 1;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--text);
+    padding: 7px 10px;
+    font-family: 'Inconsolata', monospace;
+    font-size: 13px;
+    outline: none;
+    transition: border-color var(--transition);
+  }
+  #webSearchInput:focus { border-color: var(--accent); }
+  #webSearchInput::placeholder { color: var(--text-muted); }
+  .web-search-go {
+    background: var(--accent);
+    border: 1px solid var(--accent);
+    border-radius: var(--radius);
+    color: var(--bg);
+    cursor: pointer;
+    padding: 7px 14px;
+    font-family: 'Syne', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    transition: opacity var(--transition);
+    white-space: nowrap;
+  }
+  .web-search-go:hover { opacity: 0.85; }
+  .engine-note {
+    padding: 6px 14px 10px;
+    font-size: 11px;
+    color: var(--text-muted);
+    line-height: 1.5;
+    min-height: 32px;
+  }
+
   /* Scratch pad */
   #scratchpad {
     width: 100%;
@@ -759,11 +860,12 @@
   }
 
   /* ── PROMPT MODAL ── */
-  .prompt-modal { width: 480px; max-width: 96vw; }
+  .prompt-modal { width: 520px; max-width: 96vw; }
   .prompt-tabs {
     display: flex;
     gap: 6px;
     margin-bottom: 18px;
+    flex-wrap: wrap;
   }
   .prompt-tab {
     padding: 4px 12px;
@@ -778,6 +880,39 @@
   }
   .prompt-tab:hover { border-color: var(--accent); color: var(--accent); }
   .prompt-tab.active { background: var(--accent); color: var(--bg); border-color: var(--accent); font-weight: 600; }
+
+  .prompt-form-row { margin-bottom: 14px; }
+  .prompt-form-select {
+    width: 100%;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--text-dim);
+    padding: 6px 10px;
+    font-family: 'Inconsolata', monospace;
+    font-size: 13px;
+    outline: none;
+    cursor: pointer;
+    transition: border-color var(--transition);
+  }
+  .prompt-form-select:focus { border-color: var(--accent); }
+  .prompt-form-hint {
+    margin-top: 14px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+    font-size: 13px;
+    color: var(--text-dim);
+    line-height: 1.6;
+  }
+  .prompt-form-hint strong {
+    display: block;
+    color: var(--accent);
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
   .prompt-output {
     background: var(--surface2);
     border: 1px solid var(--border);
@@ -816,6 +951,7 @@
     font-weight: 600;
     color: var(--text);
   }
+  .prompt-scenario { font-size: 15px; line-height: 1.6; color: var(--text); }
   .prompt-sparks {
     display: flex;
     flex-wrap: wrap;
@@ -883,6 +1019,13 @@
       Clear
     </button>
     <div class="header-actions">
+      <div class="accent-swatches">
+        <div class="accent-swatch" data-accent="gold"   title="Gold"   style="background:#c8a96e;"></div>
+        <div class="accent-swatch" data-accent="teal"   title="Teal"   style="background:#7eb8c9;"></div>
+        <div class="accent-swatch" data-accent="ember"  title="Ember"  style="background:#c9784a;"></div>
+        <div class="accent-swatch" data-accent="violet" title="Violet" style="background:#9e7ec9;"></div>
+        <div class="accent-swatch" data-accent="slate"  title="Slate"  style="background:#7a8fa0;"></div>
+      </div>
       <button class="icon-btn" id="themeToggle" title="Toggle theme">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
         Theme
@@ -925,6 +1068,27 @@
   </main>
 
   <aside>
+    <!-- Web Search -->
+    <div class="panel">
+      <div class="panel-header">
+        <span class="panel-title">Web Search</span>
+        <button class="icon-btn" id="webSearchClear" title="Clear search" style="display:none;">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          Clear
+        </button>
+      </div>
+      <div class="search-engines">
+        <button class="engine-btn active" data-engine="wikipedia">Wiki</button>
+        <button class="engine-btn perplexity" data-engine="perplexity">Perplexity</button>
+        <button class="engine-btn brave" data-engine="brave">Brave</button>
+      </div>
+      <div class="web-search-row">
+        <input type="text" id="webSearchInput" placeholder="Search the web…" autocomplete="off">
+        <button class="web-search-go" id="webSearchGo">Go</button>
+      </div>
+      <div class="engine-note" id="engineNote"></div>
+    </div>
+
     <!-- Scratch Pad -->
     <div class="panel">
       <div class="panel-header">
@@ -1022,20 +1186,25 @@
 <!-- Prompt Modal -->
 <div class="modal-overlay" id="promptModal">
   <div class="modal prompt-modal">
-    <h3>Prompt Draw</h3>
+    <h3>Prompt</h3>
     <div class="prompt-tabs">
       <button class="prompt-tab active" data-ptab="all">All</button>
       <button class="prompt-tab" data-ptab="scene">Scenes</button>
+      <button class="prompt-tab" data-ptab="scenario">Scenarios</button>
       <button class="prompt-tab" data-ptab="sparks">Sparks</button>
+      <button class="prompt-tab" data-ptab="form">Form</button>
+    </div>
+    <div class="prompt-form-row" id="promptFormRow" style="display:none;">
+      <select class="prompt-form-select" id="promptFormSelect"></select>
     </div>
     <div class="prompt-output" id="promptOutput">
-      <div class="prompt-empty">Press draw to get a prompt.</div>
+      <div class="prompt-empty">Press New to get a prompt.</div>
     </div>
     <div class="prompt-write" id="promptWrite">
       <textarea id="promptWriteText" placeholder="Write here…"></textarea>
     </div>
     <div class="prompt-actions-row">
-      <button class="btn btn-primary" id="promptDraw">Draw</button>
+      <button class="btn btn-primary" id="promptDraw">New</button>
       <button class="btn btn-ghost" id="promptWriteToggle">Write</button>
       <button class="btn btn-ghost" id="promptExport" style="display:none;">Export .txt</button>
       <div class="prompt-spacer"></div>
@@ -1080,6 +1249,24 @@ document.getElementById('themeToggle').addEventListener('click', () => {
   const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
   html.setAttribute('data-theme', next);
   localStorage.setItem('nexus_theme', next);
+});
+
+// ── ACCENT SWATCHES ───────────────────────────────────────────────────
+const ACCENT_NAMES = ['gold', 'teal', 'ember', 'violet', 'slate'];
+
+function setAccent(name) {
+  if (!ACCENT_NAMES.includes(name)) name = 'gold';
+  html.setAttribute('data-accent', name);
+  localStorage.setItem('nexus_lite_accent', name);
+  document.querySelectorAll('.accent-swatch').forEach(sw => {
+    sw.classList.toggle('selected', sw.dataset.accent === name);
+  });
+}
+
+setAccent(localStorage.getItem('nexus_lite_accent') || 'gold');
+
+document.querySelectorAll('.accent-swatch').forEach(sw => {
+  sw.addEventListener('click', () => setAccent(sw.dataset.accent));
 });
 
 // ── TOAST ─────────────────────────────────────────────────────────────
@@ -1806,17 +1993,93 @@ function initDragDrop() {
 }
 
 // ── WRITING PROMPT ────────────────────────────────────────────────────
-const _promptSlots = {
-  place:     ['forest','cathedral','harbor','rooftop','basement','marketplace','lighthouse','cave','train station','ruins','garden','fairground','kitchen','library','beach'],
-  character: ['stranger','elder','child','soldier','merchant','healer','outcast','twin','wanderer','thief','inventor','dreamer','jester','rival','neighbor'],
-  object:    ['lantern','letter','key','map','mirror','coin','weapon','journal','mask','clock','teacup','kite','photograph','umbrella','seed'],
-  mood:      ['tense','melancholic','urgent','mysterious','hopeful','eerie','restless','resigned','electric','tender','playful','jubilant','wistful','absurd','warm'],
-  words:     ['threshold','ember','hollow','drift','signal','fracture','remnant','tide','silence','veil','current','shadow','bloom','rust','echo','splinter','grain','descent','mirror','ash','ripple','golden','stumble','feast','ribbon','laughter','detour','spark','unravel','unexpected','gentle','peculiar','shimmer','tangled','ordinary','flourish','hum','borrowed','wander','bright']
+function _escapeHtml(str) {
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
+
+const _promptOverlayForms = {
+  scene: {
+    'character-study': { label: 'Character study', abbr: 'char', hint: 'Reveal someone through behavior, possessions, memory, contradiction, or a minor choice.' },
+    'vignette':         { label: 'Vignette', abbr: 'vig', hint: 'Capture a single moment, place, image, or mood; plot and resolution are optional.' },
+  },
+  scenario: {
+    'flash-fiction':  { label: 'Flash fiction', abbr: 'flash', hint: 'Center one event, choice, discovery, or reversal; enter late and leave early.' },
+    'dialogue-scene': { label: 'Scene in dialogue', abbr: 'dialogue', hint: 'Let conflict or desire emerge through what is said — and especially what is avoided.' },
+    'monologue':      { label: 'Dramatic monologue', abbr: 'monologue', hint: 'One speaker addresses someone; their voice gradually reveals more than they intend.' },
+  },
 };
+
+const _promptStandaloneForms = {
+  'six-word-story': { label: 'Six-word story', abbr: '6word', hint: 'Imply a character, situation, and change; leave the reader to fill in the gap.' },
+  'drabble':        { label: 'Drabble (100 words)', abbr: 'drabble', hint: 'Build one small complete arc: setup, pressure, and a turn or final image.' },
+  'free-verse':     { label: 'Free-verse poem', abbr: 'freeverse', hint: 'Follow an image, feeling, memory, or question through line breaks, sound, and association.' },
+  'prose-poem':     { label: 'Prose poem', abbr: 'prosepoem', hint: 'Write in a paragraph, but use poetic compression, rhythm, metaphor, and unexpected turns.' },
+  'haiku':          { label: 'Haiku', abbr: 'haiku', hint: 'A single haiku. Concrete images over explanation — and feel free to bend the rules.' },
+  'micro-essay':    { label: 'Micro-essay', abbr: 'microessay', hint: 'Begin with a specific detail or memory, reflect outward, and end with an image or open thought.' },
+};
+
+const _promptSlots = {
+  place:       ['forest','cathedral','harbor','rooftop','basement','marketplace','lighthouse','cave','train station','ruins','garden','fairground','kitchen','library','beach'],
+  character:   ['stranger','elder','child','soldier','merchant','healer','outcast','twin','wanderer','thief','inventor','dreamer','jester','rival','neighbor'],
+  object:      ['lantern','letter','key','map','mirror','coin','weapon','journal','mask','clock','teacup','kite','photograph','umbrella','seed'],
+  mood:        ['tense','melancholic','urgent','mysterious','hopeful','eerie','restless','resigned','electric','tender','playful','jubilant','wistful','absurd','warm'],
+  protagonist: ['a disgraced knight','a blind cartographer','a grieving mother','a fugitive scholar','a reformed thief','a retired performer','a curious child','an accidental hero','a lovesick inventor','a forgetful librarian'],
+  situation:   ['discovers a sealed room','receives a message from the dead','is mistaken for someone else','finds an object that shouldn\'t exist','overhears a confession','wins something they never wanted','loses something they never knew they had','makes a promise they can\'t keep','stumbles into a celebration','tells a lie that becomes true'],
+  setting:     ['in a city under siege','at the edge of a known map','during a funeral','on the last night before exile','in a place they swore never to return to','on the morning of a wedding','at the end of a long journey','during an unexpected storm','in a town that seems too perfect','on a perfectly ordinary Tuesday'],
+  complication:['the only witness is a child','time is running out','the truth would destroy someone they love','they are being watched','nothing is what it appears','everyone else finds it funny','the solution is embarrassingly simple','the wrong person gets the credit','they are having the best day of their life','joy and grief arrive at the same moment'],
+  words:       ['threshold','ember','hollow','drift','signal','fracture','remnant','tide','silence','veil','current','shadow','bloom','rust','echo','splinter','grain','descent','mirror','ash','ripple','golden','stumble','feast','ribbon','laughter','detour','spark','unravel','unexpected','gentle','peculiar','shimmer','tangled','ordinary','flourish','hum','borrowed','wander','bright']
+};
+
+const _promptTemplates = [
+  '[protagonist] [situation] [setting], but [complication].',
+  'When [protagonist] [situation], everything they believed about [setting] begins to unravel — and [complication].',
+  'It should have been a simple day. Then [protagonist] [situation] [setting], and [complication].'
+];
 
 let _promptDrawCounts = JSON.parse(localStorage.getItem('nexus_prompt_counts') || '{}');
 let _promptTab = 'all';
 let _promptCurrent = null;
+let _promptForm = null; // selected form key: '' or null = none, otherwise a key into overlay/standalone forms
+
+function _promptSetTab(tab) {
+  _promptTab = tab;
+  document.querySelectorAll('.prompt-tab').forEach(b => b.classList.toggle('active', b.dataset.ptab === tab));
+  _promptUpdateFormRow();
+}
+
+function _promptUpdateFormRow() {
+  const row = document.getElementById('promptFormRow');
+  const sel = document.getElementById('promptFormSelect');
+  const overlaySet = _promptOverlayForms[_promptTab];
+
+  if (_promptTab === 'form') {
+    row.style.display = 'block';
+    sel.innerHTML = Object.entries(_promptStandaloneForms)
+      .map(([k, f]) => `<option value="${k}">${f.label}</option>`).join('');
+    _promptForm = sel.value;
+    _promptShowStandaloneForm(_promptForm);
+  } else if (overlaySet) {
+    row.style.display = 'block';
+    sel.innerHTML = `<option value="">No form (default)</option>` +
+      Object.entries(overlaySet).map(([k, f]) => `<option value="${k}">${f.label}</option>`).join('');
+    _promptForm = '';
+  } else {
+    row.style.display = 'none';
+    _promptForm = null;
+  }
+}
+
+function _promptShowStandaloneForm(key) {
+  const f = _promptStandaloneForms[key];
+  if (!f) return;
+  const result = { type: 'form', key, label: f.label, hint: f.hint };
+  _promptCurrent = result;
+  _promptRender(result);
+  document.getElementById('promptExport').style.display = 'none';
+  document.getElementById('promptWriteText').value = '';
+}
 
 function _promptWeightedPick(arr, key) {
   const weighted = arr.map(v => ({ v, w: 1 / (1 + (_promptDrawCounts[key + ':' + v] || 0)) }));
@@ -1833,15 +2096,38 @@ function _promptMarkDrawn(key, val) {
 }
 
 function _promptDraw() {
-  const types = _promptTab === 'all' ? ['scene','sparks'] : [_promptTab];
+  const types = _promptTab === 'all' ? ['scene','scenario','sparks'] : [_promptTab];
   const type = types[Math.floor(Math.random() * types.length)];
   let result;
 
   if (type === 'scene') {
-    const slots = ['place','character','object','mood'];
     const drawn = {};
-    slots.forEach(s => { drawn[s] = _promptWeightedPick(_promptSlots[s], s); _promptMarkDrawn(s, drawn[s]); });
+    ['place','character','object','mood'].forEach(s => {
+      drawn[s] = _promptWeightedPick(_promptSlots[s], s);
+      _promptMarkDrawn(s, drawn[s]);
+    });
     result = { type: 'scene', drawn };
+    if (_promptForm && _promptOverlayForms.scene[_promptForm]) result.form = _promptOverlayForms.scene[_promptForm];
+  } else if (type === 'scenario') {
+    const tpl = _promptTemplates[Math.floor(Math.random() * _promptTemplates.length)];
+    const drawn = {};
+    ['protagonist','situation','setting','complication'].forEach(s => {
+      drawn[s] = _promptWeightedPick(_promptSlots[s], s);
+      _promptMarkDrawn(s, drawn[s]);
+    });
+    let text = tpl;
+    Object.entries(drawn).forEach(([s, v]) => { text = text.replace('[' + s + ']', v); });
+    result = { type: 'scenario', text };
+    if (_promptForm && _promptOverlayForms.scenario[_promptForm]) result.form = _promptOverlayForms.scenario[_promptForm];
+  } else if (type === 'form') {
+    const keys = Object.keys(_promptStandaloneForms);
+    let key = keys[Math.floor(Math.random() * keys.length)];
+    if (keys.length > 1) {
+      while (key === _promptForm) key = keys[Math.floor(Math.random() * keys.length)];
+    }
+    _promptForm = key;
+    document.getElementById('promptFormSelect').value = key;
+    result = { type: 'form', key, label: _promptStandaloneForms[key].label, hint: _promptStandaloneForms[key].hint };
   } else {
     const pool = [..._promptSlots.words];
     const picked = [];
@@ -1855,20 +2141,27 @@ function _promptDraw() {
   _promptCurrent = result;
   _promptRender(result);
   document.getElementById('promptExport').style.display = 'none';
-  const wa = document.getElementById('promptWrite');
-  if (wa.classList.contains('visible')) {
-    document.getElementById('promptWriteText').value = '';
-  }
+  document.getElementById('promptWriteText').value = '';
 }
 
 function _promptRender(p) {
   const out = document.getElementById('promptOutput');
-  if (!p) { out.innerHTML = '<div class="prompt-empty">Press draw to get a prompt.</div>'; return; }
+  if (!p) { out.innerHTML = '<div class="prompt-empty">Press New to get a prompt.</div>'; return; }
   if (p.type === 'scene') {
     out.innerHTML = `<div class="prompt-type-label">Scene</div>
       <div class="prompt-scene-words">${
-        Object.entries(p.drawn).map(([k,v]) => `<span class="prompt-slot"><span class="prompt-slot-label">${k}</span><span class="prompt-slot-value">${v}</span></span>`).join('')
-      }</div>`;
+        Object.entries(p.drawn).map(([k,v]) =>
+          `<span class="prompt-slot"><span class="prompt-slot-label">${k}</span><span class="prompt-slot-value">${v}</span></span>`
+        ).join('')
+      }</div>
+      ${p.form ? `<div class="prompt-form-hint"><strong>${_escapeHtml(p.form.label)}</strong>${_escapeHtml(p.form.hint)}</div>` : ''}`;
+  } else if (p.type === 'scenario') {
+    out.innerHTML = `<div class="prompt-type-label">Scenario</div>
+      <div class="prompt-scenario">${p.text}</div>
+      ${p.form ? `<div class="prompt-form-hint"><strong>${_escapeHtml(p.form.label)}</strong>${_escapeHtml(p.form.hint)}</div>` : ''}`;
+  } else if (p.type === 'form') {
+    out.innerHTML = `<div class="prompt-type-label">${_escapeHtml(p.label)}</div>
+      <div class="prompt-scenario">${_escapeHtml(p.hint)}</div>`;
   } else {
     out.innerHTML = `<div class="prompt-type-label">Sparks</div>
       <div class="prompt-sparks">${p.words.map(w => `<span class="prompt-spark">${w}</span>`).join('')}</div>`;
@@ -1877,9 +2170,18 @@ function _promptRender(p) {
 
 function _promptGetText() {
   if (!_promptCurrent) return '';
-  const prompt = _promptCurrent.type === 'scene'
-    ? Object.entries(_promptCurrent.drawn).map(([k,v]) => `${k}: ${v}`).join('  ·  ')
-    : _promptCurrent.words.join('  ·  ');
+  let prompt;
+  if (_promptCurrent.type === 'scene') {
+    prompt = Object.entries(_promptCurrent.drawn).map(([k,v]) => `${k}: ${v}`).join('  ·  ');
+    if (_promptCurrent.form) prompt += `\n\n${_promptCurrent.form.label}: ${_promptCurrent.form.hint}`;
+  } else if (_promptCurrent.type === 'scenario') {
+    prompt = _promptCurrent.text;
+    if (_promptCurrent.form) prompt += `\n\n${_promptCurrent.form.label}: ${_promptCurrent.form.hint}`;
+  } else if (_promptCurrent.type === 'form') {
+    prompt = `${_promptCurrent.label}: ${_promptCurrent.hint}`;
+  } else {
+    prompt = _promptCurrent.words.join('  ·  ');
+  }
   const writing = document.getElementById('promptWriteText').value.trim();
   return `Prompt (${_promptCurrent.type}):\n${prompt}${writing ? '\n\n---\n\n' + writing : ''}`;
 }
@@ -1896,11 +2198,12 @@ document.getElementById('promptModal').addEventListener('click', e => {
 document.getElementById('promptDraw').addEventListener('click', _promptDraw);
 
 document.querySelectorAll('.prompt-tab').forEach(btn => {
-  btn.addEventListener('click', () => {
-    _promptTab = btn.dataset.ptab;
-    document.querySelectorAll('.prompt-tab').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-  });
+  btn.addEventListener('click', () => _promptSetTab(btn.dataset.ptab));
+});
+
+document.getElementById('promptFormSelect').addEventListener('change', (e) => {
+  _promptForm = e.target.value;
+  if (_promptTab === 'form') _promptShowStandaloneForm(_promptForm);
 });
 
 document.getElementById('promptWriteToggle').addEventListener('click', () => {
@@ -1915,16 +2218,107 @@ document.getElementById('promptWriteText').addEventListener('input', () => {
   document.getElementById('promptExport').style.display = hasContent && _promptCurrent ? 'inline-flex' : 'none';
 });
 
+// Builds the type/form portion of the export filename — the specific form's
+// abbreviation when one's active, otherwise just the tab name.
+function _promptFilenameSlug() {
+  const p = _promptCurrent;
+  if (!p) return 'prompt';
+  if (p.type === 'form') {
+    const f = _promptStandaloneForms[p.key];
+    return f ? f.abbr : p.key;
+  }
+  if ((p.type === 'scene' || p.type === 'scenario') && p.form) return p.form.abbr;
+  return p.type; // scene, scenario, sparks
+}
+
+// Easy-to-read local date + time for filenames — no colons (invalid on
+// Windows), 12-hour clock to match the rest of Nexus's local-time display.
+function _promptFilenameTimestamp() {
+  const now = new Date();
+  const y = now.getFullYear();
+  const m = String(now.getMonth() + 1).padStart(2, '0');
+  const d = String(now.getDate()).padStart(2, '0');
+  let h = now.getHours();
+  const min = String(now.getMinutes()).padStart(2, '0');
+  const ampm = h >= 12 ? 'PM' : 'AM';
+  h = h % 12 || 12;
+  return `${y}-${m}-${d}-${String(h).padStart(2, '0')}-${min}${ampm}`;
+}
+
 document.getElementById('promptExport').addEventListener('click', () => {
   const content = _promptGetText();
   if (!content) return;
   const blob = new Blob([content], { type: 'text/plain' });
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
-  a.download = 'prompt-' + new Date().toISOString().slice(0,10) + '.txt';
+  a.download = `prompt-${_promptFilenameSlug()}-${_promptFilenameTimestamp()}.txt`;
   a.click();
   showToast('Prompt exported.');
 });
+
+// ── WEB SEARCH ────────────────────────────────────────────────────────
+const ENGINES = {
+  wikipedia: {
+    label: 'Wikipedia',
+    note: 'Encyclopedic reference · No tracking · Dark mode applied',
+    url: q => `https://en.wikipedia.org/w/index.php?search=${encodeURIComponent(q)}&vectornightmode=1`,
+  },
+  perplexity: {
+    label: 'Perplexity',
+    note: 'AI-powered answers · Log in for full features',
+    url: q => `https://www.perplexity.ai/search?q=${encodeURIComponent(q)}`,
+  },
+  brave: {
+    label: 'Brave Search',
+    note: 'Independent index · Reliable fallback',
+    url: q => `https://search.brave.com/search?q=${encodeURIComponent(q)}&source=web&safesearch=off&country=us&lang=en-us&summary=0`,
+  },
+};
+
+let _activeEngine = localStorage.getItem('nexus_lite_engine') || 'wikipedia';
+if (!ENGINES[_activeEngine]) _activeEngine = 'wikipedia';
+
+function setEngine(key) {
+  _activeEngine = key;
+  localStorage.setItem('nexus_lite_engine', key);
+  document.querySelectorAll('.engine-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.engine === key);
+  });
+  document.getElementById('engineNote').textContent = ENGINES[key].note;
+  const colors = { wikipedia: 'var(--accent)', perplexity: '#7eb8c9', brave: '#c96eb4' };
+  const go = document.getElementById('webSearchGo');
+  go.style.background = colors[key];
+  go.style.borderColor = colors[key];
+}
+
+function doWebSearch() {
+  const q = document.getElementById('webSearchInput').value.trim();
+  if (!q) return;
+  window.open(ENGINES[_activeEngine].url(q), '_blank', 'noopener');
+}
+
+document.querySelectorAll('.engine-btn').forEach(btn => {
+  btn.addEventListener('click', () => setEngine(btn.dataset.engine));
+});
+
+document.getElementById('webSearchGo').addEventListener('click', doWebSearch);
+
+document.getElementById('webSearchInput').addEventListener('input', e => {
+  document.getElementById('webSearchClear').style.display = e.target.value ? 'flex' : 'none';
+});
+
+document.getElementById('webSearchInput').addEventListener('keydown', e => {
+  if (e.key === 'Enter') doWebSearch();
+});
+
+document.getElementById('webSearchClear').addEventListener('click', () => {
+  const input = document.getElementById('webSearchInput');
+  input.value = '';
+  input.focus();
+  document.getElementById('webSearchClear').style.display = 'none';
+});
+
+setEngine(_activeEngine);
 
 // ── INIT ──────────────────────────────────────────────────────────────
 loadData();
